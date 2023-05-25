@@ -7,3 +7,4 @@ insert into customer(name) values ('Jolyn');
 insert into customer(name) values ('Giorgio');
 insert into customer(name) values ('Jotaroh');
 insert into customer(name) values ('Josefumi');
+insert into customer(name) values ('Josefumi');

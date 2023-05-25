@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
@@ -21,7 +22,7 @@ public class AotApplication {
 
 	@Bean
 	ApplicationRunner applicationRunner(CustomerRespository customerRespository){
-		return args -> customerRespository.findAll().forEach(System.out::println);
+		return args -> customerRespository.findByName("test").forEach(System.out::println);
 	}
 
 
@@ -40,11 +41,19 @@ class CustomerController{
 	Iterable<Customer> getCustomers(){
 		return customerRespository.findAll();
 	}
+
+	@GetMapping("/customers/{name}")
+	Iterable<Customer> byName(@PathVariable String name){
+		return customerRespository.findByName(name);
+	}
+
+
 }
 
 @Repository
 interface CustomerRespository extends CrudRepository<Customer, Integer>{
 
+	Iterable<Customer> findByName(String name);
 }
 record Customer(@Id Integer id, String name){
 
